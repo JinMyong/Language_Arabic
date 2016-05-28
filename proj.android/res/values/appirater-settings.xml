@@ -11,7 +11,7 @@
     <!-- Set this to 0 to remind every launch -->
     <integer name="appirator_days_before_reminding">3</integer>
     <!-- Change to true to show every time, for testing -->
-    <bool name="appirator_test_mode">false</bool>
+    <bool name="appirator_test_mode">true</bool>
     <!-- Change modify button colors -->
     <color name="appirator_button_start_color">#ff449def</color>
     <color name="appirator_button_end_color">#ff2f6699</color>

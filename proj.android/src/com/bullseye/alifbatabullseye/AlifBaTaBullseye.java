@@ -31,6 +31,7 @@ import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 
 import com.sbstrm.appirater.Appirater;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -38,7 +39,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Toast;
 
-public class AlifBaTaBullseye extends Cocos2dxActivity{
+ public class AlifBaTaBullseye extends Cocos2dxActivity{
 	private static Cocos2dxActivity me = null;
     protected void onCreate(Bundle savedInstanceState){
     	me = this;
@@ -59,7 +60,7 @@ public class AlifBaTaBullseye extends Cocos2dxActivity{
         me.startActivity(i);
     }
     
-    public static void sendemail(String mailbody)
+    @SuppressLint("ShowToast") public static void sendemail(String mailbody)
     {
     	Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
 		shareIntent.setType("text/plain");
@@ -73,11 +74,15 @@ public class AlifBaTaBullseye extends Cocos2dxActivity{
         }
         catch (android.content.ActivityNotFoundException ex)
         {
-            Toast.makeText(me, "There are no email clients installed.", Toast.LENGTH_SHORT);
+        	me.runOnUiThread(new Runnable() {
+				public void run() {
+								Toast.makeText(me, "There are no email clients installed.", Toast.LENGTH_SHORT);
+				}
+			});
         }		
     }
     
-    public static void sendemailWithScreenShot(String filelocation, String mailbody)
+    @SuppressLint("ShowToast")public static void sendemailWithScreenShot(String filelocation, String mailbody)
     {
     	
 		Bitmap bmp = BitmapFactory.decodeFile(filelocation);
@@ -117,12 +122,20 @@ public class AlifBaTaBullseye extends Cocos2dxActivity{
         }
         catch (android.content.ActivityNotFoundException ex)
         {
-            Toast.makeText(me, "There are no email clients installed.", Toast.LENGTH_SHORT);
+        	me.runOnUiThread(new Runnable() {
+				public void run() {
+						Toast.makeText(me, "There are no email clients installed.", Toast.LENGTH_SHORT);
+				}
+			});
         }
     }
     public static void appRate()
-    {
-    	Appirater.appLaunched(me);
+    {    	
+    	me.runOnUiThread(new Runnable() {
+    							public void run() {
+    								Appirater.appLaunched(me);
+    							}
+    					});
     }
     static {
         System.loadLibrary("cocos2dcpp");
