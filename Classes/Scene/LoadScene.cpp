@@ -14,6 +14,14 @@
 #include "MainMenuScene.hpp"
 #include "SoundEffects.hpp"
 
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+#include "SocialGame.h"
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+#include "platform/android/jni/JniHelper.h"
+#endif
+
+
 using namespace CocosDenshion;
 using namespace std;
 
@@ -218,5 +226,18 @@ void LoadScene::onLoad(cocos2d::CCObject *sender)
 
 void LoadScene::onFinishLoad(cocos2d::CCObject *sender)
 {
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    SocialGame::rategame();
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+    JniMethodInfo t;
+    if (JniHelper::getStaticMethodInfo(t
+                                       , "com/bullseye/alifbatabullseye/AlifBaTaBullseye"
+                                       , "appRate"
+                                       , "()V"))
+    {
+        t.env->CallStaticVoidMethod(t.classID, t.methodID);
+    }
+#endif
+
     CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(0.5f, MainMenuScene::scene()));
 }

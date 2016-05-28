@@ -21,13 +21,6 @@
 
 #include "GameResultScene.hpp"
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-#include "SocialGame.h"
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-#include "platform/android/jni/JniHelper.h"
-#endif
-
-
 CCScene* MainMenuScene::scene()
 {
     CCScene* scene = CCScene::create();
@@ -62,21 +55,6 @@ bool MainMenuScene::init()
     }
     
     SoundEffects::getInstance()->playThemeBackgroundMusic();
-    CCString* emailtext = CCString::createWithFormat("%s\n%s", EMAIL_TEXT_FRIEND, ANDROID_URL);
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    SocialGame::rategame();
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-    JniMethodInfo t;
-    if (JniHelper::getStaticMethodInfo(t
-                                       , "com/bullseye/alifbatabullseye/AlifBaTaBullseye"
-                                       , "sendemail"
-                                       , "(Ljava/lang/String;)V"))
-    {
-        jstring StringArg1 = t.env->NewStringUTF(emailtext->getCString());
-        t.env->CallStaticVoidMethod(t.classID, t.methodID, StringArg1);
-    }
-#endif
-    
     return true;
 }
 
