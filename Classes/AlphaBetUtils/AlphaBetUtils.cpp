@@ -108,20 +108,16 @@ void AlphaBetUtils::setupLetterNameArray()
 bool AlphaBetUtils::isSoundaAlikesVowel(int scrLetter, int compareLetter)
 {
     bool isAlike = false;
-//
-//    CCInteger* srcObj = CCInteger::create(scrLetter);
-//    CCInteger* compareObj = CCInteger::create(compareLetter);
-//    
-//    for (CCArray *groupArray in soundAlikes) {
-//        
-//    }
+    if (getLetterName(scrLetter) == getLetterName(compareLetter)) {
+        isAlike = true;
+    }
     return isAlike;
 }
 
 bool AlphaBetUtils::isVowel(int scrLetter)
 {
     bool isVowel = false;
-    if (scrLetter >= FIRST_CONSONANT_IDX) {
+    if (scrLetter >= FIRST_VOWEL_IDX) {
         isVowel = true;
     }
     return isVowel;

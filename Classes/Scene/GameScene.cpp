@@ -193,16 +193,10 @@ void GameScene::startNewLetter()
     
     // If the last letter was a hit, get a new one. Otherwise repeat.
     int targetLetter;
-//    if (lastWasHit) {
-        // Pick the new target letter
-        targetLetter = LetterBag::getInstance()->getRandomLetterFormBagLimitRepeats();
+    targetLetter = LetterBag::getInstance()->getRandomLetterFormBagLimitRepeats();
         
         // Store the target letter for later
-        lastTargetLetter = targetLetter;
-//    }else
-//    {
-//        targetLetter = lastTargetLetter;
-//    }
+    lastTargetLetter = targetLetter;
     
     CCInteger* targetLetterObj = CCInteger::create(targetLetter);
     
@@ -283,7 +277,6 @@ void GameScene::changeGameState(GameState newGameState)
             break;
         case GAME_SHOOTING:
             // Do nothing
-//            hero_boy->shoot();
             break;
         case GAME_HIT:
             this->doStateHit(true);

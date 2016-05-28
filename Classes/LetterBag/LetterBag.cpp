@@ -138,7 +138,6 @@ int LetterBag::getRandomLetterFormBagLimitRepeats()
 CCArray* LetterBag::getRandomLettersFromAlephBet(int numLetters, int excludeLetter)
 {
     bool soundAlike = false;
-    bool betExclusion = false;
     
     CCArray* letterArray = CCArray::create();
     letterArray->retain();
@@ -146,7 +145,7 @@ CCArray* LetterBag::getRandomLettersFromAlephBet(int numLetters, int excludeLett
     for (int letterCount = 0; letterCount < numLetters; letterCount++) {
         // Pick a letter an make sure it's not the exclude letter, or sound-alike vowels
         int randLetter = excludeLetter;
-        while ((randLetter == excludeLetter) || soundAlike || betExclusion) {
+        while ((randLetter == excludeLetter) || soundAlike) {
             bool alreadyIn;
             do {
                 alreadyIn = false;
@@ -161,11 +160,6 @@ CCArray* LetterBag::getRandomLettersFromAlephBet(int numLetters, int excludeLett
                 // Check for special "sound alike" vowels
                 if (randLetter != excludeLetter) {
                     soundAlike = AlphaBetUtils::getInstance()->isSoundaAlikesVowel(randLetter, excludeLetter);
-                }
-                
-                // Exclude vowels when letter is a bet
-                if (excludeLetter == BA_IDX) {
-                    betExclusion = AlphaBetUtils::getInstance()->isVowel(randLetter);
                 }
             } while (alreadyIn);
         }

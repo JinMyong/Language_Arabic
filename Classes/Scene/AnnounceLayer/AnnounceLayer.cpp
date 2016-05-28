@@ -67,18 +67,6 @@ void AnnounceLayer::doNextCountDown()
     // Do number, 3-2-1
     string countString;
     switch (countdown) {
-//        case 7:
-//            countString = "7";
-//            break;
-//        case 6:
-//            countString = "6";
-//            break;
-//        case 5:
-//            countString = "5";
-//            break;
-//        case 4:
-//            countString = "4";
-//            break;
         case 3:
             countString = "3";
             break;
